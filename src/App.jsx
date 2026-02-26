@@ -1,10 +1,10 @@
 import "./App.css";
-import InteractiveCV from "./components/InteractiveCV";
+import Portfolio from "./components/Portfolio";
 
 function App() {
   return (
     <>
-      <InteractiveCV />
+      <Portfolio />
     </>
   );
 }
