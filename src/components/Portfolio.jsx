@@ -424,10 +424,13 @@ export default function Portfolio() {
             />
 
             {/* EDUCATION */}
-            <h3 style={{ marginBottom: "1rem", marginTop: "2rem" }}>
+            <h3 style={{ marginBottom: "1.5rem", marginTop: "2rem" }}>
               Education
             </h3>
+
+            {/* Added logo prop to Experience component! Add your image sources here */}
             <Experience
+              logo="./src/assets/uoe-logo.png"
               company="University of Essex | Colchester, England"
               role="MSc Advanced Computer Science"
               duration="Graduating November 2025"
@@ -438,6 +441,7 @@ export default function Portfolio() {
               ]}
             />
             <Experience
+              logo="./src/assets/logo-du.png"
               company="University of Delhi | Delhi, India"
               role="BSc (Honours) Electronic Science"
               duration="July 2019 - May 2022"
@@ -785,23 +789,70 @@ function SkillCategory({ title, skills }) {
   );
 }
 
-function Experience({ company, role, duration, achievements }) {
+// Updated Experience Component: Now accepts an optional 'logo' prop!
+function Experience({ company, role, duration, achievements, logo }) {
   return (
     <div className="minimal-card exp-item">
-      <div className="exp-header">
-        <div>
-          <h4>{role}</h4>
-          <span className="exp-company">{company}</span>
-        </div>
-        <div className="exp-meta">
-          <span>{duration}</span>
+      <div
+        className="exp-header"
+        style={{
+          display: "flex",
+          alignItems: "flex-start",
+          gap: "1.2rem",
+        }}
+      >
+        {/* Conditional rendering for the logo */}
+        {logo && (
+          <div
+            style={{
+              backgroundColor: "#ffffff",
+              padding: "0.5rem",
+              borderRadius: "8px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              width: "60px",
+              height: "60px",
+              flexShrink: 0,
+              boxShadow: "0 2px 4px rgba(0,0,0,0.05)",
+            }}
+          >
+            <img
+              src={logo}
+              alt="Logo"
+              style={{
+                maxWidth: "100%",
+                maxHeight: "100%",
+                objectFit: "contain",
+              }}
+            />
+          </div>
+        )}
+
+        {/* Standard Text Header Container */}
+        <div
+          style={{
+            flexGrow: 1,
+            display: "flex",
+            justifyContent: "space-between",
+            flexWrap: "wrap",
+            gap: "0.5rem",
+          }}
+        >
+          <div>
+            <h4 style={{ margin: "0 0 0.25rem 0" }}>{role}</h4>
+            <span className="exp-company">{company}</span>
+          </div>
+          <div className="exp-meta">
+            <span>{duration}</span>
+          </div>
         </div>
       </div>
 
-      <div className="exp-achievements">
+      <div className="exp-achievements" style={{ marginTop: "1.5rem" }}>
         {achievements.map((ach, i) => (
           <div key={i} className="achievement-item">
-            <p>{ach}</p>
+            <p style={{ margin: "0.5rem 0" }}>{ach}</p>
           </div>
         ))}
       </div>
