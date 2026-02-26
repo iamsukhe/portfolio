@@ -132,7 +132,6 @@ function FadeInSection({ children, className = "" }) {
 export default function Portfolio() {
   const [activeSection, setActiveSection] = useState("home");
   const [isDarkMode, setIsDarkMode] = useState(true);
-  // State for the contact popup
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
 
   // Handle Dark Mode toggling
@@ -179,7 +178,6 @@ export default function Portfolio() {
     if (element) {
       window.scrollTo({ top: element.offsetTop - 80, behavior: "smooth" });
     }
-    // Close modal if user clicks a nav link while it's open
     setIsContactModalOpen(false);
   };
 
@@ -258,14 +256,38 @@ export default function Portfolio() {
       <section id="about" className="section-container">
         <FadeInSection>
           <div className="grid-layout-2col">
-            <div className="text-block">
-              <span className="overline">About</span>
-              <h2 className="section-title">
+            {/* UPDATED: Glassmorphism Wrapper using CSS variables */}
+            <div
+              className="text-block"
+              style={{
+                backgroundColor: "var(--glass-bg)",
+                backdropFilter: "blur(16px)",
+                WebkitBackdropFilter: "blur(16px)", // Safari support
+                padding: "2.5rem",
+                borderRadius: "16px",
+                border: "1px solid var(--glass-border)",
+                boxShadow: "var(--glass-shadow)",
+                zIndex: 10,
+                position: "relative",
+                transition:
+                  "background-color 0.3s ease, border-color 0.3s ease", // Smooth theme switch
+              }}
+            >
+              <span className="overline" style={{ fontWeight: "600" }}>
+                About
+              </span>
+              <h2 className="section-title" style={{ marginTop: "0.5rem" }}>
                 Built for scale,
                 <br />
                 designed for trust.
               </h2>
-              <p className="intro-text">
+              <p
+                className="intro-text"
+                style={{
+                  lineHeight: "1.8",
+                  color: "var(--text-main)", // Forced main color for legibility
+                }}
+              >
                 I'm a results-driven Software Development Engineer with over 2
                 years of professional experience in designing, developing, and
                 deploying scalable backend systems. Proficient in building
@@ -273,7 +295,14 @@ export default function Portfolio() {
                 implementing microservices architectures using Python and
                 Node.js.
               </p>
-              <p className="intro-text" style={{ marginTop: "1rem" }}>
+              <p
+                className="intro-text"
+                style={{
+                  marginTop: "1rem",
+                  lineHeight: "1.8",
+                  color: "var(--text-main)",
+                }}
+              >
                 I have completed my MSc in Advanced Computer Science with
                 Distinction, specializing in AI/ML integration, prompt
                 engineering, and backend system scalability. I am passionate
@@ -283,7 +312,13 @@ export default function Portfolio() {
               </p>
               <p
                 className="intro-text"
-                style={{ marginTop: "1rem", fontSize: "0.9rem", opacity: 0.8 }}
+                style={{
+                  marginTop: "1.5rem",
+                  fontSize: "0.95rem",
+                  color: "var(--text-main)",
+                  opacity: 0.9,
+                  lineHeight: "1.6",
+                }}
               >
                 <strong>Interests:</strong> Cricket, Cycling, Competitive
                 Programming, JavaScript, Python Techniques, Fitness, Outdoor
@@ -528,8 +563,16 @@ export default function Portfolio() {
                   alignItems: "center",
                 }}
               >
-                <BrandLogo src={suraasaLogo} alt="Suraasa" />
-                <BrandLogo src={hybrowlabsLogo} alt="Hybrowlabs Technologies" />
+                <BrandLogo
+                  src={suraasaLogo}
+                  alt="Suraasa"
+                  hrefLink="https://www.suraasa.com/"
+                />
+                <BrandLogo
+                  src={hybrowlabsLogo}
+                  alt="Hybrowlabs Technologies"
+                  hrefLink="https://hybrowlabs.com/"
+                />
               </div>
             </div>
 
@@ -784,7 +827,7 @@ export default function Portfolio() {
         </FadeInSection>
       </section>
 
-      {/* MODIFIED: CONTACT SECTION WITHOUT FORM */}
+      {/* CONTACT SECTION WITHOUT FORM */}
       <section id="contact" className="section-container">
         <FadeInSection>
           <div className="text-center-block" style={{ paddingBottom: "2rem" }}>
@@ -874,7 +917,7 @@ export default function Portfolio() {
         💬
       </button>
 
-      {/* MODIFIED: DIRECT CONTACT MODAL (NO FORM) */}
+      {/* DIRECT CONTACT MODAL (NO FORM) */}
       {isContactModalOpen && (
         <div
           className="modal-overlay"
@@ -1052,9 +1095,12 @@ function SocialIcon({ href, path, viewBox = "0 0 24 24", bgColor, title }) {
 }
 
 // Brand Logo Card Helper
-function BrandLogo({ src, alt }) {
+function BrandLogo({ src, alt, hrefLink }) {
   return (
-    <div
+    <a
+      href={hrefLink}
+      target="_blank"
+      rel="noopener noreferrer"
       style={{
         backgroundColor: "#ffffff",
         padding: "1.5rem",
@@ -1066,6 +1112,8 @@ function BrandLogo({ src, alt }) {
         height: "100px",
         boxShadow: "0 4px 6px rgba(0,0,0,0.05)",
         transition: "transform 0.2s ease, box-shadow 0.2s ease",
+        textDecoration: "none",
+        cursor: "pointer",
       }}
       onMouseEnter={(e) => {
         e.currentTarget.style.transform = "translateY(-4px)";
@@ -1085,7 +1133,7 @@ function BrandLogo({ src, alt }) {
           objectFit: "contain",
         }}
       />
-    </div>
+    </a>
   );
 }
 

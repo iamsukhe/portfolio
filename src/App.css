@@ -12,6 +12,11 @@
   --border-subtle: #dadce0;
   --card-bg: #ffffff;
   --card-alt: #f1f3f4; 
+  
+  /* NEW: Light mode glass effect */
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(0, 0, 0, 0.1);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
 }
 
 body.dark-mode {
@@ -25,6 +30,11 @@ body.dark-mode {
   --border-subtle: #3c4043;
   --card-bg: #111111;
   --card-alt: #1a1a1a;
+  
+  /* NEW: Dark mode glass effect - significantly darker for readability */
+  --glass-bg: rgba(10, 10, 10, 0.85); 
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
 }
 
 * {
