@@ -1,6 +1,11 @@
 import { useState, useEffect, useRef } from "react";
 import AntigravityBackground from "./AntigravityBackground";
 
+import suraasaLogo from "../assets/suraasa.png";
+import hybrowlabsLogo from "../assets/hybrowlabs.svg";
+import uoeLogo from "../assets/uoe-logo.png";
+import duLogo from "../assets/logo-du.png";
+
 // Native IntersectionObserver for scroll animations
 function FadeInSection({ children, className = "" }) {
   const [isVisible, setVisible] = useState(false);
@@ -407,11 +412,8 @@ export default function Portfolio() {
                 {/* REPLACE THESE `src` LINKS WITH YOUR ACTUAL BRAND LOGOS 
                   Use transparent PNGs for the best effect. The white background card will make them pop.
                 */}
-                <BrandLogo src="./src/assets/suraasa.png" alt="Suraasa" />
-                <BrandLogo
-                  src="./src/assets/hybrowlabs.svg"
-                  alt="Hybrowlabs Technologies"
-                />
+                <BrandLogo src={suraasaLogo} alt="Suraasa" />
+                <BrandLogo src={hybrowlabsLogo} alt="Hybrowlabs Technologies" />
               </div>
             </div>
 
@@ -430,7 +432,7 @@ export default function Portfolio() {
 
             {/* Added logo prop to Experience component! Add your image sources here */}
             <Experience
-              logo="./src/assets/uoe-logo.png"
+              logo={uoeLogo}
               company="University of Essex | Colchester, England"
               role="MSc Advanced Computer Science"
               duration="Graduating November 2025"
@@ -441,7 +443,7 @@ export default function Portfolio() {
               ]}
             />
             <Experience
-              logo="./src/assets/logo-du.png"
+              logo={duLogo}
               company="University of Delhi | Delhi, India"
               role="BSc (Honours) Electronic Science"
               duration="July 2019 - May 2022"
