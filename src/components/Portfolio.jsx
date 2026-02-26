@@ -221,6 +221,24 @@ export default function Portfolio() {
                   bgColor="#FFA116"
                   path="M16.102 17.93l-2.697 2.607c-.466.467-1.111.662-1.823.662s-1.357-.195-1.824-.662l-4.332-4.363c-.467-.467-.702-1.15-.702-1.863s.235-1.357.702-1.824l4.319-4.38c.467-.467 1.125-.645 1.837-.645s1.357.195 1.823.662l2.697 2.606c.514.515 1.365.497 1.9-.038.535-.536.553-1.387.039-1.901l-2.609-2.636a5.055 5.055 0 0 0-2.445-1.337l2.467-2.503c.516-.514.498-1.366-.037-1.901-.535-.535-1.387-.552-1.902-.038l-10.1 10.101c-.981.982-1.469 2.376-1.469 3.765s.488 2.783 1.469 3.765l4.332 4.363c.981.982 2.375 1.469 3.764 1.469s2.783-.487 3.765-1.469l2.697-2.607c.514-.514.496-1.365-.039-1.9-.535-.536-1.387-.554-1.901-.039zM20.811 13.01H10.666c-.702 0-1.27.604-1.27 1.346s.568 1.346 1.27 1.346h10.145c.701 0 1.27-.604 1.27-1.346s-.569-1.346-1.27-1.346z"
                 />
+                <SocialIcon
+                  href="#"
+                  title="Twitter / X"
+                  bgColor="#1DA1F2"
+                  path="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"
+                />
+                <SocialIcon
+                  href="#"
+                  title="Facebook"
+                  bgColor="#1877F2"
+                  path="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"
+                />
+                <SocialIcon
+                  href="#"
+                  title="Instagram"
+                  bgColor="#E4405F"
+                  path="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.07zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"
+                />
               </div>
             </div>
 
@@ -302,11 +320,11 @@ export default function Portfolio() {
         </FadeInSection>
       </section>
 
-      {/* EXPERIENCE & EDUCATION */}
+      {/* EXPERIENCE SUMMARY & BRANDS */}
       <section id="experience" className="section-container bg-alt">
         <FadeInSection>
           <div className="text-center-block">
-            <span className="overline">Experience & Education</span>
+            <span className="overline">Experience</span>
             <h2 className="section-title">
               Proven experience,
               <br />
@@ -315,45 +333,98 @@ export default function Portfolio() {
           </div>
 
           <div className="experience-timeline minimal-cards">
-            <h3 style={{ marginBottom: "1rem", marginTop: "2rem" }}>
-              Work Experience
-            </h3>
-            <Experience
-              company="Suraasa | Gurugram, India"
-              role="Software Development Engineer"
-              duration="May 2022 – August 2024"
-              achievements={[
-                "Engineered and scaled backend systems for the International Teaching Olympiad, serving over 20,000 concurrent users.",
-                "Developed scalable REST APIs in Node.js and Python, enabling seamless data flow across microservices.",
-                "Integrated Redis caching for Authentication, reducing API response times by 30%, and optimized system throughput under peak load.",
-                "Led the end-to-end design and development of a credential management system to store and manage users’ certificates, alongside developing a comprehensive user enrolment system.",
-                "Implemented a centralized authentication package in TypeScript with token-based security and Single Sign-On (SSO) for multi-service login.",
-                "Created a reusable package that accepts JSON input and automatically generates TypeScript and Python code, enabling a centralized API solution.",
-                "Collaborated with front-end teams using Agile methodology to align backend APIs with UI/UX consistency and performance.",
-                "Developed a user profile feature leveraging generative AI to automatically generate users’ resumes based on their profile data.",
-              ]}
-            />
-            <Experience
-              company="Suraasa | Gurugram, India"
-              role="Backend Intern"
-              duration="April 2022 – May 2022"
-              achievements={[
-                "Trained in Node.js, Python, and Adonis.js; delivered a self-initiated backend module for organizational use.",
-                "Contributed to building a transaction management system within the finance module, integrating third-party payment gateways such as Stripe and Razorpay.",
-                "Implemented taxation logic and payment splitting functionality to support complex financial workflows.",
-              ]}
-            />
-            <Experience
-              company="Hybrowlabs Technologies | Gurugram, India"
-              role="Web Development Intern"
-              duration="June 2021 – January 2022"
-              achievements={[
-                "Collaborated with the team to implement front-end components, ensuring cross-browser compatibility.",
-                "Developed responsive web pages using HTML, CSS, and JavaScript, enhancing user experience and accessibility.",
-              ]}
+            {/* WORK EXPERIENCE SUMMARY */}
+            <div
+              style={{
+                marginTop: "2rem",
+                marginBottom: "3rem",
+                padding: "0 1rem",
+                textAlign: "center",
+                maxWidth: "900px",
+                marginLeft: "auto",
+                marginRight: "auto",
+              }}
+            >
+              <p
+                className="intro-text"
+                style={{
+                  fontSize: "1.1rem",
+                  lineHeight: "1.8",
+                  color: "var(--text-color)",
+                }}
+              >
+                Over the past 2+ years, I have specialized in building and
+                scaling robust backend architectures. During my tenure as a
+                Software Development Engineer at Suraasa, I engineered REST APIs
+                that handled 20,000+ concurrent users and optimized system
+                performance by 30% through strategic Redis caching. I led the
+                development of centralized authentication (SSO) and credential
+                management systems using Node.js and TypeScript, and even
+                integrated generative AI features to automate user resume
+                creation.
+              </p>
+              <p
+                className="intro-text"
+                style={{
+                  fontSize: "1.1rem",
+                  lineHeight: "1.8",
+                  color: "var(--text-color)",
+                  marginTop: "1rem",
+                }}
+              >
+                My experience extends to creating complex financial workflows
+                and payment gateway integrations, building responsive front-end
+                components, and delivering automated API solutions to ensure
+                cross-functional team success.
+              </p>
+            </div>
+
+            {/* BRANDS GRID */}
+            <div
+              style={{
+                textAlign: "center",
+                marginTop: "3rem",
+                marginBottom: "4rem",
+              }}
+            >
+              <h3
+                style={{
+                  marginBottom: "2rem",
+                  color: "var(--primary-color, inherit)",
+                }}
+              >
+                Brands I Have Worked With!
+              </h3>
+
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+                  gap: "1.5rem",
+                  alignItems: "center",
+                }}
+              >
+                {/* REPLACE THESE `src` LINKS WITH YOUR ACTUAL BRAND LOGOS 
+                  Use transparent PNGs for the best effect. The white background card will make them pop.
+                */}
+                <BrandLogo src="./src/assets/suraasa.png" alt="Suraasa" />
+                <BrandLogo
+                  src="./src/assets/hybrowlabs.svg"
+                  alt="Hybrowlabs Technologies"
+                />
+              </div>
+            </div>
+
+            <hr
+              style={{
+                borderTop: "1px solid var(--border-color)",
+                opacity: 0.3,
+                margin: "2rem 0",
+              }}
             />
 
-            <h3 style={{ marginBottom: "1rem", marginTop: "3rem" }}>
+            {/* EDUCATION */}
+            <h3 style={{ marginBottom: "1rem", marginTop: "2rem" }}>
               Education
             </h3>
             <Experience
@@ -641,6 +712,44 @@ function SocialIcon({ href, path, viewBox = "0 0 24 24", bgColor, title }) {
         <path d={path} />
       </svg>
     </a>
+  );
+}
+
+// Brand Logo Card Helper
+function BrandLogo({ src, alt }) {
+  return (
+    <div
+      style={{
+        backgroundColor: "#ffffff", // Keeps the card white to match the reference image
+        padding: "1.5rem",
+        borderRadius: "8px",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        width: "100%",
+        height: "100px", // Fixed height to keep the grid uniform
+        boxShadow: "0 4px 6px rgba(0,0,0,0.05)",
+        transition: "transform 0.2s ease, box-shadow 0.2s ease",
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.transform = "translateY(-4px)";
+        e.currentTarget.style.boxShadow = "0 8px 15px rgba(0,0,0,0.1)";
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.transform = "translateY(0)";
+        e.currentTarget.style.boxShadow = "0 4px 6px rgba(0,0,0,0.05)";
+      }}
+    >
+      <img
+        src={src}
+        alt={alt}
+        style={{
+          maxWidth: "100%",
+          maxHeight: "100%",
+          objectFit: "contain",
+        }}
+      />
+    </div>
   );
 }
 
