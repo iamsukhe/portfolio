@@ -96,6 +96,7 @@ export default function AntigravityBackground() {
       return targets;
     };
 
+    // eslint-disable-next-line react-hooks/unsupported-syntax
     class Particle {
       constructor(index, total) {
         this.index = index;

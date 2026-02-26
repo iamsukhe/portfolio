@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import AntigravityBackground from "./AntigravityBackground";
 
-// Native IntersectionObserver
+// Native IntersectionObserver for scroll animations
 function FadeInSection({ children, className = "" }) {
   const [isVisible, setVisible] = useState(false);
   const domRef = useRef();
@@ -39,6 +39,7 @@ export default function Portfolio() {
   const [activeSection, setActiveSection] = useState("home");
   const [isDarkMode, setIsDarkMode] = useState(false);
 
+  // Handle Dark Mode toggling
   useEffect(() => {
     if (isDarkMode) {
       document.body.classList.add("dark-mode");
@@ -47,12 +48,14 @@ export default function Portfolio() {
     }
   }, [isDarkMode]);
 
+  // Handle Scroll Spy for Navbar
   useEffect(() => {
     const handleScroll = () => {
       const sections = [
         "home",
         "about",
         "experience",
+        "stats",
         "projects",
         "open-source",
         "writing",
@@ -94,6 +97,7 @@ export default function Portfolio() {
               "home",
               "about",
               "experience",
+              "stats",
               "projects",
               "open-source",
               "writing",
@@ -105,7 +109,9 @@ export default function Portfolio() {
               >
                 {item === "open-source"
                   ? "Open Source"
-                  : item.charAt(0).toUpperCase() + item.slice(1)}
+                  : item === "stats"
+                    ? "GitHub Stats"
+                    : item.charAt(0).toUpperCase() + item.slice(1)}
               </button>
             ))}
           </div>
@@ -155,7 +161,7 @@ export default function Portfolio() {
                 designed for trust.
               </h2>
               <p className="intro-text">
-                I'm a results-driven Software Development Engineer with over 3
+                I'm a results-driven Software Development Engineer with over 2
                 years of professional experience in designing, developing, and
                 deploying scalable backend systems. Proficient in building
                 robust RESTful APIs, optimizing distributed systems, and
@@ -178,35 +184,65 @@ export default function Portfolio() {
                 Programming, JavaScript, Python Techniques, Fitness, Outdoor
                 Exploration.
               </p>
-              <div className="social-links" style={{ marginTop: "2rem" }}>
-                <a
+
+              {/* SOCIAL ICONS ROW */}
+              <div
+                className="social-links"
+                style={{
+                  marginTop: "2.5rem",
+                  display: "flex",
+                  flexWrap: "wrap",
+                  gap: "1rem",
+                  alignItems: "center",
+                }}
+              >
+                <SocialIcon
+                  href="mailto:sukhe353@gmail.com"
+                  title="Email Me"
+                  bgColor="#EA4335"
+                  viewBox="0 0 24 24"
+                  path="M20 4H4C2.9 4 2.01 4.9 2.01 6L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"
+                />
+                <SocialIcon
                   href="https://github.com/iamsukhe"
-                  className="pill-btn outline"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  GitHub
-                </a>
-                <a
+                  title="GitHub"
+                  bgColor="#181717"
+                  path="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
+                />
+                <SocialIcon
                   href="https://www.linkedin.com/in/sukhvinder-singh-4029a8190/"
-                  className="pill-btn outline"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  LinkedIn
-                </a>
-                <a
+                  title="LinkedIn"
+                  bgColor="#0A66C2"
+                  path="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"
+                />
+                <SocialIcon
                   href="https://leetcode.com/u/iamsukhe/"
-                  className="pill-btn outline"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  LeetCode
-                </a>
+                  title="LeetCode"
+                  bgColor="#FFA116"
+                  path="M16.102 17.93l-2.697 2.607c-.466.467-1.111.662-1.823.662s-1.357-.195-1.824-.662l-4.332-4.363c-.467-.467-.702-1.15-.702-1.863s.235-1.357.702-1.824l4.319-4.38c.467-.467 1.125-.645 1.837-.645s1.357.195 1.823.662l2.697 2.606c.514.515 1.365.497 1.9-.038.535-.536.553-1.387.039-1.901l-2.609-2.636a5.055 5.055 0 0 0-2.445-1.337l2.467-2.503c.516-.514.498-1.366-.037-1.901-.535-.535-1.387-.552-1.902-.038l-10.1 10.101c-.981.982-1.469 2.376-1.469 3.765s.488 2.783 1.469 3.765l4.332 4.363c.981.982 2.375 1.469 3.764 1.469s2.783-.487 3.765-1.469l2.697-2.607c.514-.514.496-1.365-.039-1.9-.535-.536-1.387-.554-1.901-.039zM20.811 13.01H10.666c-.702 0-1.27.604-1.27 1.346s.568 1.346 1.27 1.346h10.145c.701 0 1.27-.604 1.27-1.346s-.569-1.346-1.27-1.346z"
+                />
               </div>
             </div>
 
             <div className="skills-grid minimal-cards">
+              {/* DYNAMIC TECH STACK ICONS */}
+              <div
+                className="minimal-card"
+                style={{ padding: "1.5rem", gridColumn: "1 / -1" }}
+              >
+                <h4 style={{ marginBottom: "1rem", textAlign: "center" }}>
+                  Core Tech Stack
+                </h4>
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                  <img
+                    src="https://skillicons.dev/icons?i=html,css,js,ts,python,cpp,react,express,django,nodejs,postgres,mongo,redis,docker,nginx,git,cypress,tensorflow&perline=6"
+                    alt="Tech Stack Icons"
+                    style={{ maxWidth: "100%", height: "auto" }}
+                  />
+                </div>
+              </div>
+
+              {/* TEXTUAL TAGS FOR DETAIL / ATS */}
               <SkillCategory
                 title="Programming Languages"
                 skills={[
@@ -236,11 +272,13 @@ export default function Portfolio() {
                 ]}
               />
               <SkillCategory
-                title="Databases & Tools"
+                title="Databases, Tools & DevOps"
                 skills={[
                   "PostgreSQL",
                   "MongoDB",
                   "Redis",
+                  "Docker",
+                  "Nginx",
                   "Cypress",
                   "Mocha",
                   "Git",
@@ -253,7 +291,7 @@ export default function Portfolio() {
                   "CNNs",
                   "Keras",
                   "Scikit-learn",
-                  "Feature Engineering",
+                  "Multimodal Signal Processing",
                   "API Development",
                   "Backend Optimization",
                   "Agile Methodology",
@@ -288,11 +326,11 @@ export default function Portfolio() {
                 "Engineered and scaled backend systems for the International Teaching Olympiad, serving over 20,000 concurrent users.",
                 "Developed scalable REST APIs in Node.js and Python, enabling seamless data flow across microservices.",
                 "Integrated Redis caching for Authentication, reducing API response times by 30%, and optimized system throughput under peak load.",
-                "Led the end-to-end design and development of a credential management system, including database architecture, project workflow, and implementation.",
-                "Implemented a centralized authentication package in TypeScript with token-based security and Single Sign-On (SSO).",
-                "Created a reusable package that accepts JSON input and automatically generates TypeScript and Python code.",
-                "Developed a user profile feature leveraging generative AI to automatically generate users' resumes.",
-                "Collaborated with front-end teams using Agile methodology to align backend APIs with UI/UX consistency.",
+                "Led the end-to-end design and development of a credential management system to store and manage users’ certificates, alongside developing a comprehensive user enrolment system.",
+                "Implemented a centralized authentication package in TypeScript with token-based security and Single Sign-On (SSO) for multi-service login.",
+                "Created a reusable package that accepts JSON input and automatically generates TypeScript and Python code, enabling a centralized API solution.",
+                "Collaborated with front-end teams using Agile methodology to align backend APIs with UI/UX consistency and performance.",
+                "Developed a user profile feature leveraging generative AI to automatically generate users’ resumes based on their profile data.",
               ]}
             />
             <Experience
@@ -301,19 +339,17 @@ export default function Portfolio() {
               duration="April 2022 – May 2022"
               achievements={[
                 "Trained in Node.js, Python, and Adonis.js; delivered a self-initiated backend module for organizational use.",
-                "Contributed to building a transaction management system within the finance module, integrating Stripe and Razorpay.",
+                "Contributed to building a transaction management system within the finance module, integrating third-party payment gateways such as Stripe and Razorpay.",
                 "Implemented taxation logic and payment splitting functionality to support complex financial workflows.",
-                "Utilized Git for source control and streamlined team collaboration via pull requests and issue tracking.",
               ]}
             />
             <Experience
-              company="Hybrowlabs Technologies | Pune, India"
+              company="Hybrowlabs Technologies | Gurugram, India"
               role="Web Development Intern"
               duration="June 2021 – January 2022"
               achievements={[
                 "Collaborated with the team to implement front-end components, ensuring cross-browser compatibility.",
                 "Developed responsive web pages using HTML, CSS, and JavaScript, enhancing user experience and accessibility.",
-                "Gained hands-on experience in debugging and troubleshooting UI/UX issues across various platforms.",
               ]}
             />
 
@@ -321,32 +357,75 @@ export default function Portfolio() {
               Education
             </h3>
             <Experience
-              company="University of Essex"
+              company="University of Essex | Colchester, England"
               role="MSc Advanced Computer Science"
-              duration="September 2024 – October 2025"
+              duration="Graduating November 2025"
               achievements={[
-                "Achievement: Distinction",
-                "Specialized in AI/ML integration, prompt engineering, and backend system scalability.",
+                "Classification: Pass with Distinction",
+                "Master’s Dissertation: Achieved Distinction (82/100) in final research project.",
+                "Relevant Coursework: Machine Learning, Data Science & Decision Making, Game AI, Intelligent Systems & Robotics, Computer Security.",
               ]}
             />
             <Experience
-              company="University of Delhi"
+              company="University of Delhi | Delhi, India"
               role="BSc (Honours) Electronic Science"
               duration="July 2019 - May 2022"
-              achievements={["Achievement: 7.418/10 CGPA"]}
+              achievements={[
+                "Performance: First Division (7.4/10 CGPA)",
+                "Relevant Coursework: Artificial Intelligence, Data Sciences, C Programming & Data Structures, Embedded Systems.",
+              ]}
             />
-            <Experience
-              company="Bhai Joga Singh Public School"
-              role="Senior Secondary (XII-Science)"
-              duration="2018 - 2019"
-              achievements={["Achievement: 88.7%"]}
+          </div>
+        </FadeInSection>
+      </section>
+
+      {/* GITHUB STATS SECTION */}
+      <section id="stats" className="section-container">
+        <FadeInSection>
+          <div className="text-center-block">
+            <span className="overline">Analytics</span>
+            <h2 className="section-title">GitHub Insights.</h2>
+          </div>
+
+          <div
+            className="github-stats-grid"
+            style={{
+              display: "flex",
+              gap: "2rem",
+              justifyContent: "center",
+              flexWrap: "wrap",
+              marginTop: "2rem",
+            }}
+          >
+            {/* Fetches directly from your profile: iamsukhe */}
+            <img
+              src={`https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=iamsukhe&theme=${
+                isDarkMode ? "radical" : "default"
+              }`}
+              alt="Top Languages by Repo"
+              style={{
+                maxWidth: "100%",
+                borderRadius: "8px",
+                boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+              }}
+            />
+            <img
+              src={`https://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=iamsukhe&theme=${
+                isDarkMode ? "radical" : "default"
+              }`}
+              alt="Top Languages by Commit"
+              style={{
+                maxWidth: "100%",
+                borderRadius: "8px",
+                boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+              }}
             />
           </div>
         </FadeInSection>
       </section>
 
       {/* LIVE PROJECTS */}
-      <section id="projects" className="section-container">
+      <section id="projects" className="section-container bg-alt">
         <FadeInSection>
           <div className="text-center-block">
             <span className="overline">Projects</span>
@@ -368,8 +447,9 @@ export default function Portfolio() {
               </p>
               <p>
                 Developed an AI-driven tool for neuromarketing using deep
-                learning. Analyzes multimodal data (facial expressions, heart
-                rate, EEG) to detect consumer emotions and attention levels.
+                learning and affective computing techniques. Analyzes multimodal
+                data (facial expressions, heart rate, EEG, eye-tracking, and
+                galvanic conductance) to detect consumer emotions and attention.
               </p>
               <div className="tag-grid" style={{ marginTop: "auto" }}>
                 <CustomTag tag="AI/ML" />
@@ -392,10 +472,10 @@ export default function Portfolio() {
                 Dissertation Project
               </p>
               <p>
-                A virtual space designed for autistic children, focusing on
-                sensory needs and alternative communication. Features
-                customizable avatars and interactive tools built on Web3
-                principles.
+                A virtual space designed for autistic children (aged 7-12),
+                accommodating sensory needs and alternative communication.
+                Features customizable avatars, safe virtual environments, and
+                interactive tools promoting social skills.
               </p>
               <div className="tag-grid" style={{ marginTop: "auto" }}>
                 <CustomTag tag="Web3" />
@@ -434,7 +514,7 @@ export default function Portfolio() {
       </section>
 
       {/* OPEN SOURCE CONTRIBUTIONS */}
-      <section id="open-source" className="section-container bg-alt">
+      <section id="open-source" className="section-container">
         <FadeInSection>
           <div className="text-center-block">
             <span className="overline">Open Source</span>
@@ -482,7 +562,7 @@ export default function Portfolio() {
       </section>
 
       {/* WRITING */}
-      <section id="writing" className="section-container">
+      <section id="writing" className="section-container bg-alt">
         <FadeInSection>
           <div className="text-center-block">
             <span className="overline">Latest Blogs & Publications</span>
@@ -521,8 +601,50 @@ export default function Portfolio() {
 
 // --- HELPER COMPONENTS --- //
 
+// Reusable Circular Social Icon Helper
+function SocialIcon({ href, path, viewBox = "0 0 24 24", bgColor, title }) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      title={title}
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        width: "42px",
+        height: "42px",
+        backgroundColor: bgColor,
+        color: "#ffffff",
+        borderRadius: "50%",
+        textDecoration: "none",
+        transition: "transform 0.2s ease, opacity 0.2s ease",
+        boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.transform = "translateY(-3px)";
+        e.currentTarget.style.opacity = "0.9";
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.transform = "translateY(0)";
+        e.currentTarget.style.opacity = "1";
+      }}
+    >
+      <svg
+        viewBox={viewBox}
+        width="22"
+        height="22"
+        fill="currentColor"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path d={path} />
+      </svg>
+    </a>
+  );
+}
+
 function CustomTag({ tag }) {
-  // Target skills highlighted in blue with the mirror effect
   const targetSkills = [
     "JavaScript",
     "TypeScript",
@@ -578,7 +700,6 @@ function Experience({ company, role, duration, achievements }) {
   );
 }
 
-// Open Source Contribution Card Helper (Now fully clickable)
 function OpenSourceCard({ title, repo, prNum, description, tags, link }) {
   return (
     <a
