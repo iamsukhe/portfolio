@@ -1,13 +1,12 @@
 import { useEffect, useRef } from "react";
 
-// Google-esque blue and tech colors seen in the video
+// Tech-focused palette: sleek blues, AI-purples, and node grays
 const COLORS = [
-  "#1a73e8",
-  "#4285F4",
-  "#8AB4F8",
-  "#aecbfa",
-  "#202124",
-  "#e8eaed",
+  "#1a73e8", // Google Blue
+  "#8AB4F8", // Light Blue
+  "#9333ea", // AI Purple
+  "#3b82f6", // Cyan/Blue
+  "#64748b", // Slate
 ];
 
 export default function AntigravityBackground() {
@@ -18,10 +17,9 @@ export default function AntigravityBackground() {
     const ctx = canvas.getContext("2d");
     let animationFrameId;
     let particles = [];
-    let currentShapeIndex = 0;
 
-    // Track mouse to add a subtle repel effect even while in shapes
-    let mouse = { x: -1000, y: -1000 };
+    // Track mouse to act as a central "data processor" node
+    let mouse = { x: -1000, y: -1000, radius: 150 };
 
     const resize = () => {
       canvas.width = window.innerWidth;
@@ -39,193 +37,104 @@ export default function AntigravityBackground() {
       mouse.y = -1000;
     });
 
-    // Helper to generate target shapes
-    const generateTargets = (shapeType, numParticles, width, height) => {
-      const targets = [];
-      const cx = width / 2;
-      const cy = height / 2;
-
-      for (let i = 0; i < numParticles; i++) {
-        if (shapeType === "random") {
-          targets.push({ x: Math.random() * width, y: Math.random() * height });
-        } else if (shapeType === "circle") {
-          const angle = (i / numParticles) * Math.PI * 2;
-          const radius = height * 0.35 + (Math.random() * 40 - 20); // Slightly fuzzy circle
-          targets.push({
-            x: cx + Math.cos(angle) * radius,
-            y: cy + Math.sin(angle) * radius,
-          });
-        } else if (shapeType === "brackets") {
-          // Forms [ ] shapes
-          const isLeft = i % 2 === 0;
-          const bracketWidth = width * 0.15;
-          const bracketHeight = height * 0.4;
-          const spacing = width * 0.25;
-
-          let bx, by;
-          const progress = Math.random(); // 0 to 1 along the bracket line
-
-          if (progress < 0.2) {
-            // Top horizontal
-            bx = isLeft
-              ? cx - spacing - Math.random() * bracketWidth
-              : cx + spacing + Math.random() * bracketWidth;
-            by = cy - bracketHeight;
-          } else if (progress > 0.8) {
-            // Bottom horizontal
-            bx = isLeft
-              ? cx - spacing - Math.random() * bracketWidth
-              : cx + spacing + Math.random() * bracketWidth;
-            by = cy + bracketHeight;
-          } else {
-            // Vertical line
-            bx = isLeft ? cx - spacing : cx + spacing;
-            by =
-              cy -
-              bracketHeight +
-              ((progress - 0.2) / 0.6) * (bracketHeight * 2);
-          }
-
-          // Add slight noise
-          targets.push({
-            x: bx + (Math.random() * 20 - 10),
-            y: by + (Math.random() * 20 - 10),
-          });
-        }
-      }
-      return targets;
-    };
-
-    // eslint-disable-next-line react-hooks/unsupported-syntax
     class Particle {
-      constructor(index, total) {
-        this.index = index;
-        this.total = total;
+      constructor() {
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height;
-        this.vx = (Math.random() - 0.5) * 2;
-        this.vy = (Math.random() - 0.5) * 2;
+        // Slower, more deliberate movement representing data flow
+        this.vx = (Math.random() - 0.5) * 1.5;
+        this.vy = (Math.random() - 0.5) * 1.5;
+        this.radius = Math.random() * 2 + 1;
         this.color = COLORS[Math.floor(Math.random() * COLORS.length)];
-        this.length = Math.random() * 6 + 3;
-        this.thickness = Math.random() * 1.5 + 1;
-        this.target = { x: this.x, y: this.y };
-        this.rotation = 0;
       }
 
-      setTarget(target) {
-        this.target = target;
-      }
+      update() {
+        // Bounce off edges
+        if (this.x < 0 || this.x > canvas.width) this.vx = -this.vx;
+        if (this.y < 0 || this.y > canvas.height) this.vy = -this.vy;
 
-      update(shapeType) {
-        // Subtle mouse repel
-        const dxMouse = mouse.x - this.x;
-        const dyMouse = mouse.y - this.y;
-        const distMouse = Math.hypot(dxMouse, dyMouse);
-        let repelX = 0;
-        let repelY = 0;
+        this.x += this.vx;
+        this.y += this.vy;
 
-        if (distMouse < 150) {
-          const force = (150 - distMouse) / 150;
-          repelX = -(dxMouse / distMouse) * force * 5;
-          repelY = -(dyMouse / distMouse) * force * 5;
+        // Mouse interaction: slight gravitational pull towards the mouse
+        const dx = mouse.x - this.x;
+        const dy = mouse.y - this.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+
+        if (distance < mouse.radius) {
+          const forceDirectionX = dx / distance;
+          const forceDirectionY = dy / distance;
+          // Very gentle pull
+          const force = (mouse.radius - distance) / mouse.radius;
+          this.x += forceDirectionX * force * 0.5;
+          this.y += forceDirectionY * force * 0.5;
         }
-
-        if (shapeType === "random") {
-          // Wander mode
-          this.vx += (Math.random() - 0.5) * 0.2;
-          this.vy += (Math.random() - 0.5) * 0.2;
-
-          // Speed limits
-          if (this.vx > 2) this.vx = 2;
-          if (this.vx < -2) this.vx = -2;
-          if (this.vy > 2) this.vy = 2;
-          if (this.vy < -2) this.vy = -2;
-
-          this.x += this.vx + repelX;
-          this.y += this.vy + repelY;
-
-          // Screen wrap
-          if (this.x < 0) this.x = canvas.width;
-          if (this.x > canvas.width) this.x = 0;
-          if (this.y < 0) this.y = canvas.height;
-          if (this.y > canvas.height) this.y = 0;
-        } else {
-          // Morph mode (Spring physics towards target)
-          const dxTarget = this.target.x - this.x;
-          const dyTarget = this.target.y - this.y;
-
-          this.vx += dxTarget * 0.02; // Spring tension
-          this.vy += dyTarget * 0.02;
-
-          this.vx *= 0.85; // Friction
-          this.vy *= 0.85;
-
-          this.x += this.vx + repelX;
-          this.y += this.vy + repelY;
-        }
-
-        // Rotate to match movement direction (gives that video dash look)
-        this.rotation = Math.atan2(this.vy, this.vx);
       }
 
       draw() {
-        ctx.save();
-        ctx.translate(this.x, this.y);
-        ctx.rotate(this.rotation);
-
         ctx.beginPath();
-        ctx.lineCap = "round";
-        ctx.lineWidth = this.thickness;
-        ctx.strokeStyle = this.color;
-
-        ctx.moveTo(-this.length / 2, 0);
-        ctx.lineTo(this.length / 2, 0);
-        ctx.stroke();
-
-        ctx.restore();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = this.color;
+        ctx.fill();
       }
     }
 
     const initParticles = () => {
       particles = [];
-      const numParticles = window.innerWidth > 768 ? 600 : 250;
+      // Adjust particle count based on screen size to maintain performance (O(n^2) complexity for lines)
+      const numParticles = window.innerWidth > 768 ? 120 : 60;
       for (let i = 0; i < numParticles; i++) {
-        particles.push(new Particle(i, numParticles));
+        particles.push(new Particle());
       }
     };
 
-    // Shape transition logic
-    const shapes = ["random", "brackets", "random", "circle"];
-    const changeShape = () => {
-      currentShapeIndex = (currentShapeIndex + 1) % shapes.length;
-      const newShape = shapes[currentShapeIndex];
-      const targets = generateTargets(
-        newShape,
-        particles.length,
-        canvas.width,
-        canvas.height,
-      );
-
-      particles.forEach((p, i) => {
-        if (newShape !== "random") p.setTarget(targets[i]);
-      });
-    };
-
-    const shapeInterval = setInterval(changeShape, 4000);
-
     const animate = () => {
-      // Clear with slight opacity for ultra-smooth movement trails
-      const isDark = document.body.classList.contains("dark-mode");
-      ctx.fillStyle = isDark
-        ? "rgba(5, 5, 5, 0.4)"
-        : "rgba(255, 255, 255, 0.4)";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      // Clear the canvas completely so it relies on the CSS background color of the parent wrapper
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      const currentShape = shapes[currentShapeIndex];
-      particles.forEach((p) => {
-        p.update(currentShape);
-        p.draw();
-      });
+      // Check for dark mode to adjust line opacity/color
+      const isDark = document.body.classList.contains("dark-mode");
+      const lineBaseColor = isDark ? "138, 180, 248" : "26, 115, 232"; // Light blue vs Deep blue
+
+      // Update and draw particles, plus draw neural network connections
+      for (let i = 0; i < particles.length; i++) {
+        particles[i].update();
+        particles[i].draw();
+
+        // Connect particles to each other
+        for (let j = i; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+
+          if (distance < 120) {
+            ctx.beginPath();
+            // Opacity fades out the further away the particles are
+            const opacity = 1 - distance / 120;
+            ctx.strokeStyle = `rgba(${lineBaseColor}, ${opacity * 0.5})`;
+            ctx.lineWidth = 1;
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.stroke();
+          }
+        }
+
+        // Connect particles to the mouse (user acts as an active node)
+        const dxMouse = particles[i].x - mouse.x;
+        const dyMouse = particles[i].y - mouse.y;
+        const distanceMouse = Math.sqrt(dxMouse * dxMouse + dyMouse * dyMouse);
+
+        if (distanceMouse < mouse.radius) {
+          ctx.beginPath();
+          const opacity = 1 - distanceMouse / mouse.radius;
+          ctx.strokeStyle = `rgba(${lineBaseColor}, ${opacity * 0.8})`;
+          ctx.lineWidth = 1.5;
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(mouse.x, mouse.y);
+          ctx.stroke();
+        }
+      }
+
       animationFrameId = requestAnimationFrame(animate);
     };
 
@@ -236,7 +145,6 @@ export default function AntigravityBackground() {
       window.removeEventListener("resize", resize);
       window.removeEventListener("mousemove", null);
       window.removeEventListener("mouseout", null);
-      clearInterval(shapeInterval);
       cancelAnimationFrame(animationFrameId);
     };
   }, []);
@@ -252,6 +160,8 @@ export default function AntigravityBackground() {
         height: "100vh",
         zIndex: -1,
         pointerEvents: "none",
+        // Smooth transition when switching dark/light modes
+        transition: "background-color 0.3s ease",
       }}
     />
   );
