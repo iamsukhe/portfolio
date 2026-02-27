@@ -231,37 +231,42 @@ export default function Portfolio() {
       <nav className="navbar">
         <div className="nav-container">
           <div className="nav-brand">Code. Create. Scale.</div>
-          <div className="nav-links">
-            {[
-              "home",
-              "about",
-              "experience",
-              "certifications", // Added to Navbar
-              "stats",
-              "projects",
-              "open-source",
-              "writing",
-              "contact",
-            ].map((item) => (
-              <button
-                key={item}
-                className={`nav-btn ${activeSection === item ? "active" : ""}`}
-                onClick={() => scrollTo(item)}
-              >
-                {item === "open-source"
-                  ? "Open Source"
-                  : item === "stats"
-                    ? "GitHub Stats"
-                    : item.charAt(0).toUpperCase() + item.slice(1)}
-              </button>
-            ))}
+
+          {/* NEW: Grouping links and button together */}
+          <div className="nav-right">
+            <div className="nav-links">
+              {[
+                "home",
+                "about",
+                "experience",
+                "certifications",
+                "stats",
+                "projects",
+                "open-source",
+                "writing",
+                "contact",
+              ].map((item) => (
+                <button
+                  key={item}
+                  className={`nav-btn ${activeSection === item ? "active" : ""}`}
+                  onClick={() => scrollTo(item)}
+                >
+                  {item === "open-source"
+                    ? "Open Source"
+                    : item === "stats"
+                      ? "GitHub Stats"
+                      : item.charAt(0).toUpperCase() + item.slice(1)}
+                </button>
+              ))}
+            </div>
+
+            <button
+              className="theme-toggle pill-btn outline"
+              onClick={() => setIsDarkMode(!isDarkMode)}
+            >
+              {isDarkMode ? "Light Mode" : "Dark Mode"}
+            </button>
           </div>
-          <button
-            className="theme-toggle pill-btn outline"
-            onClick={() => setIsDarkMode(!isDarkMode)}
-          >
-            {isDarkMode ? "Light Mode" : "Dark Mode"}
-          </button>
         </div>
       </nav>
 
@@ -1511,41 +1516,108 @@ function CertificationCarousel({ certs }) {
       style={{
         position: "relative",
         maxWidth: "800px",
-        margin: "0 auto",
-        padding: "1rem",
-        overflow: "hidden", // Hides the overflowing images
+        margin: "2rem auto 0", // Added top margin to make room for the crown
+        padding: "2rem 1rem 1rem 1rem", // Increased top padding
+        overflow: "visible", // Changed to visible so the crown can sit outside
+        border: "2px solid rgba(255, 215, 0, 0.5)", // Subtle gold border
+        boxShadow: "0 10px 30px rgba(255, 215, 0, 0.15)", // Golden glow
+        borderRadius: "16px",
       }}
     >
-      {/* Slider Track */}
+      {/* --- CROWN EFFECT START --- */}
       <div
         style={{
+          position: "absolute",
+          top: "-35px", // Positions it halfway outside the top border
+          left: "50%",
+          transform: "translateX(-50%)",
+          zIndex: 20,
+          background: "var(--bg-color, #fff)", // Matches your theme's background to mask the border behind it
+          padding: "0 15px",
+          borderRadius: "50px",
           display: "flex",
-          transition: "transform 0.5s ease-in-out",
-          transform: `translateX(-${currentIndex * 100}%)`,
+          justifyContent: "center",
+          alignItems: "center",
+          animation: "floatCrown 3s ease-in-out infinite", // Subtle floating animation
         }}
       >
-        {certs.map((cert) => (
-          <div
-            key={cert.id}
-            style={{
-              minWidth: "100%",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
-            <img
-              src={cert.image}
-              alt={cert.title}
+        <svg
+          width="50"
+          height="50"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="url(#goldGradient)"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          style={{ dropShadow: "0px 4px 6px rgba(255, 215, 0, 0.4)" }}
+        >
+          <defs>
+            <linearGradient
+              id="goldGradient"
+              x1="0%"
+              y1="0%"
+              x2="100%"
+              y2="100%"
+            >
+              <stop offset="0%" stopColor="#BF953F" />
+              <stop offset="25%" stopColor="#FCF6BA" />
+              <stop offset="50%" stopColor="#B38728" />
+              <stop offset="75%" stopColor="#FBF5B7" />
+              <stop offset="100%" stopColor="#AA771C" />
+            </linearGradient>
+          </defs>
+          <path d="M2 4l3 12h14l3-12-6 7-4-7-4 7-6-7zm3 16h14" />
+        </svg>
+      </div>
+      {/* Keyframes for the floating crown animation (you can alternatively add this to your CSS file) */}
+      <style>{`
+        @keyframes floatCrown {
+          0% { transform: translate(-50%, 0px); }
+          50% { transform: translate(-50%, -8px); }
+          100% { transform: translate(-50%, 0px); }
+        }
+      `}</style>
+      {/* --- CROWN EFFECT END --- */}
+
+      {/* Slider Track Wrapper (Moved overflow: hidden here so it doesn't clip the crown) */}
+      <div
+        style={{
+          overflow: "hidden",
+          borderRadius: "8px",
+          position: "relative",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            transition: "transform 0.5s cubic-bezier(0.4, 0.0, 0.2, 1)",
+            transform: `translateX(-${currentIndex * 100}%)`,
+          }}
+        >
+          {certs.map((cert) => (
+            <div
+              key={cert.id}
               style={{
-                width: "100%",
-                maxHeight: "450px",
-                objectFit: "contain",
-                borderRadius: "8px",
+                minWidth: "100%",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
               }}
-            />
-          </div>
-        ))}
+            >
+              <img
+                src={cert.image}
+                alt={cert.title}
+                style={{
+                  width: "100%",
+                  maxHeight: "450px",
+                  objectFit: "contain",
+                  borderRadius: "8px",
+                }}
+              />
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* Navigation Buttons */}
@@ -1554,31 +1626,33 @@ function CertificationCarousel({ certs }) {
         style={{
           position: "absolute",
           top: "50%",
-          left: "20px",
+          left: "-20px", // Pushed slightly outside the box for a cleaner look
           transform: "translateY(-50%)",
-          backgroundColor: "var(--glass-bg, rgba(255, 255, 255, 0.2))",
+          backgroundColor: "var(--glass-bg, rgba(255, 255, 255, 0.8))",
           backdropFilter: "blur(4px)",
-          color: "var(--text-main, #fff)",
-          border: "1px solid var(--border-subtle, #ccc)",
+          color: "var(--text-main, #333)",
+          border: "1px solid rgba(255, 215, 0, 0.5)", // Gold border on buttons
           borderRadius: "50%",
-          width: "40px",
-          height: "40px",
+          width: "45px",
+          height: "45px",
           cursor: "pointer",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
           fontSize: "1.2rem",
           zIndex: 10,
-          transition: "background-color 0.2s",
+          boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
+          transition: "all 0.3s ease",
         }}
-        onMouseEnter={(e) =>
-          (e.currentTarget.style.backgroundColor =
-            "var(--primary-color, #007bff)")
-        }
-        onMouseLeave={(e) =>
-          (e.currentTarget.style.backgroundColor =
-            "var(--glass-bg, rgba(255, 255, 255, 0.2))")
-        }
+        onMouseEnter={(e) => {
+          e.currentTarget.style.backgroundColor = "rgba(255, 215, 0, 0.9)";
+          e.currentTarget.style.color = "#000";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.backgroundColor =
+            "var(--glass-bg, rgba(255, 255, 255, 0.8))";
+          e.currentTarget.style.color = "var(--text-main, #333)";
+        }}
       >
         &#10094;
       </button>
@@ -1588,31 +1662,33 @@ function CertificationCarousel({ certs }) {
         style={{
           position: "absolute",
           top: "50%",
-          right: "20px",
+          right: "-20px", // Pushed slightly outside
           transform: "translateY(-50%)",
-          backgroundColor: "var(--glass-bg, rgba(255, 255, 255, 0.2))",
+          backgroundColor: "var(--glass-bg, rgba(255, 255, 255, 0.8))",
           backdropFilter: "blur(4px)",
-          color: "var(--text-main, #fff)",
-          border: "1px solid var(--border-subtle, #ccc)",
+          color: "var(--text-main, #333)",
+          border: "1px solid rgba(255, 215, 0, 0.5)",
           borderRadius: "50%",
-          width: "40px",
-          height: "40px",
+          width: "45px",
+          height: "45px",
           cursor: "pointer",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
           fontSize: "1.2rem",
           zIndex: 10,
-          transition: "background-color 0.2s",
+          boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
+          transition: "all 0.3s ease",
         }}
-        onMouseEnter={(e) =>
-          (e.currentTarget.style.backgroundColor =
-            "var(--primary-color, #007bff)")
-        }
-        onMouseLeave={(e) =>
-          (e.currentTarget.style.backgroundColor =
-            "var(--glass-bg, rgba(255, 255, 255, 0.2))")
-        }
+        onMouseEnter={(e) => {
+          e.currentTarget.style.backgroundColor = "rgba(255, 215, 0, 0.9)";
+          e.currentTarget.style.color = "#000";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.backgroundColor =
+            "var(--glass-bg, rgba(255, 255, 255, 0.8))";
+          e.currentTarget.style.color = "var(--text-main, #333)";
+        }}
       >
         &#10095;
       </button>
@@ -1623,7 +1699,7 @@ function CertificationCarousel({ certs }) {
           display: "flex",
           justifyContent: "center",
           gap: "0.5rem",
-          marginTop: "1rem",
+          marginTop: "1.5rem",
         }}
       >
         {certs.map((_, idx) => (
@@ -1631,13 +1707,12 @@ function CertificationCarousel({ certs }) {
             key={idx}
             onClick={() => setCurrentIndex(idx)}
             style={{
-              width: "10px",
+              width: currentIndex === idx ? "24px" : "10px", // Active dot stretches out pill-shaped
               height: "10px",
-              borderRadius: "50%",
-              backgroundColor:
-                currentIndex === idx ? "var(--primary-color, #007bff)" : "gray",
+              borderRadius: "10px",
+              backgroundColor: currentIndex === idx ? "#D4AF37" : "gray", // Metallic gold for active
               cursor: "pointer",
-              transition: "background-color 0.3s",
+              transition: "all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1)",
             }}
           />
         ))}

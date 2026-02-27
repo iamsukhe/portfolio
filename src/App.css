@@ -66,7 +66,7 @@ body {
   visibility: visible;
 }
 
-/* --- NAVBAR --- */
+/* --- NAVBAR --- */ 
 .navbar {
   position: fixed;
   top: 0;
@@ -80,7 +80,7 @@ body {
 }
 
 .nav-container {
-  max-width: 1200px;
+  max-width: 1300px; /* Increased slightly to give links more breathing room */
   margin: 0 auto;
   padding: 0 2rem;
   display: flex;
@@ -88,15 +88,16 @@ body {
   align-items: center;
 }
 
-.nav-brand {
-  font-weight: 700;
-  font-size: 1.2rem;
-  letter-spacing: -0.5px;
+/* NEW: Groups the links and the button */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 2rem; /* Space between the links and the Theme Button */
 }
 
 .nav-links {
   display: flex;
-  gap: 2rem;
+  gap: 1.25rem; /* Reduced from 2rem so the extra links fit cleanly */
 }
 
 .nav-btn {
@@ -108,10 +109,17 @@ body {
   font-weight: 500;
   cursor: pointer;
   transition: color 0.2s ease;
+  white-space: nowrap; /* Prevents individual link text from breaking into two lines */
 }
 
 .nav-btn:hover, .nav-btn.active {
   color: var(--text-main);
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 1050px) {
+  /* Hide links a bit earlier if the screen gets too small for all 9 links */
+  .nav-links { display: none; }
 }
 
 /* --- BUTTONS --- */
