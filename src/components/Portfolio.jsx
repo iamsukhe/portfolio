@@ -5,6 +5,7 @@ import suraasaLogo from "../assets/suraasa.png";
 import hybrowlabsLogo from "../assets/hybrowlabs.svg";
 import uoeLogo from "../assets/uoe-logo.png";
 import duLogo from "../assets/logo-du.png";
+import resume from "../assets/resume.pdf";
 
 // Core Tech Icons Array
 const coreTechIcons = [
@@ -132,7 +133,10 @@ function FadeInSection({ children, className = "" }) {
 export default function Portfolio() {
   const [activeSection, setActiveSection] = useState("home");
   const [isDarkMode, setIsDarkMode] = useState(true);
+
+  // States for modals
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+  const [isResumeModalOpen, setIsResumeModalOpen] = useState(false);
 
   // Handle Dark Mode toggling
   useEffect(() => {
@@ -178,7 +182,9 @@ export default function Portfolio() {
     if (element) {
       window.scrollTo({ top: element.offsetTop - 80, behavior: "smooth" });
     }
+    // Close modals if user clicks a nav link while they are open
     setIsContactModalOpen(false);
+    setIsResumeModalOpen(false);
   };
 
   return (
@@ -256,7 +262,7 @@ export default function Portfolio() {
       <section id="about" className="section-container">
         <FadeInSection>
           <div className="grid-layout-2col">
-            {/* UPDATED: Glassmorphism Wrapper using CSS variables */}
+            {/* Glassmorphism Wrapper for better readability */}
             <div
               className="text-block"
               style={{
@@ -324,6 +330,15 @@ export default function Portfolio() {
                 Programming, JavaScript, Python Techniques, Fitness, Outdoor
                 Exploration.
               </p>
+
+              {/* VIEW RESUME BUTTON */}
+              <button
+                className="pill-btn primary"
+                style={{ marginTop: "1.5rem" }}
+                onClick={() => setIsResumeModalOpen(true)}
+              >
+                View Resume
+              </button>
 
               {/* SOCIAL ICONS ROW */}
               <div
@@ -1042,6 +1057,89 @@ export default function Portfolio() {
                 WhatsApp Me
               </a>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* RESUME PDF MODAL */}
+      {isResumeModalOpen && (
+        <div
+          className="modal-overlay"
+          onClick={() => setIsResumeModalOpen(false)}
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100vw",
+            height: "100vh",
+            backgroundColor: "rgba(0, 0, 0, 0.8)",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            zIndex: 2000,
+            backdropFilter: "blur(4px)",
+          }}
+        >
+          <div
+            className="modal-content minimal-card"
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              width: "90%",
+              height: "90%",
+              maxWidth: "1000px",
+              padding: "1rem",
+              position: "relative",
+              backgroundColor: "var(--card-bg, #fff)", // Uses theme card background
+              display: "flex",
+              flexDirection: "column",
+              borderRadius: "12px",
+            }}
+          >
+            {/* UPDATED CLOSE BUTTON */}
+            <button
+              className="close-btn"
+              onClick={() => setIsResumeModalOpen(false)}
+              style={{
+                alignSelf: "flex-end",
+                background: "var(--bg-alt, #f1f1f1)", // Slight background to make it pop
+                border: "1px solid var(--border-subtle, #ccc)",
+                fontSize: "1.5rem",
+                cursor: "pointer",
+                color: "var(--text-main, #000)", // Forces correct contrast
+                marginBottom: "0.5rem",
+                width: "40px",
+                height: "40px",
+                borderRadius: "50%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                transition: "all 0.2s ease",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = "var(--text-main)";
+                e.currentTarget.style.color = "var(--bg-main)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor =
+                  "var(--bg-alt, #f1f1f1)";
+                e.currentTarget.style.color = "var(--text-main, #000)";
+              }}
+            >
+              ×
+            </button>
+
+            {/* MAKE SURE TO PLACE YOUR PDF FILE (e.g. 'resume.pdf') INTO YOUR PUBLIC FOLDER */}
+            <iframe
+              src={resume}
+              title="Resume"
+              style={{
+                width: "100%",
+                height: "100%",
+                border: "1px solid var(--border-subtle)", // Added slight border
+                borderRadius: "8px",
+                backgroundColor: "#fff", // PDFs are white, so force white background behind it
+              }}
+            />
           </div>
         </div>
       )}
