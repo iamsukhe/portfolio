@@ -7,6 +7,12 @@ import uoeLogo from "../assets/uoe-logo.png";
 import duLogo from "../assets/logo-du.png";
 import resume from "../assets/resume.pdf";
 
+import nodejsCertificate from "../assets/certificate/nodejs.jpg";
+import reactjsCertificate from "../assets/certificate/reactjs.jpg";
+import jsBasicCertificate from "../assets/certificate/js_basic.jpg";
+import sqlBasicCertificate from "../assets/certificate/sql_basic.jpg";
+import sqlIntermediateCertificate from "../assets/certificate/sql_intermediate .jpg";
+
 // Core Tech Icons Array
 const coreTechIcons = [
   {
@@ -96,6 +102,35 @@ const coreTechIcons = [
   },
 ];
 
+// Dummy Certifications Array (Replace paths with your actual imported images)
+const certificationsData = [
+  {
+    id: 1,
+    title: "NodeJs",
+    image: nodejsCertificate,
+  },
+  {
+    id: 2,
+    title: "ReactJs",
+    image: reactjsCertificate,
+  },
+  {
+    id: 3,
+    title: "JavaScript",
+    image: jsBasicCertificate,
+  },
+  {
+    id: 4,
+    title: "Sql Basic",
+    image: sqlBasicCertificate,
+  },
+  {
+    id: 5,
+    title: "Sql Intermediate",
+    image: sqlIntermediateCertificate,
+  },
+];
+
 // Native IntersectionObserver for scroll animations
 function FadeInSection({ children, className = "" }) {
   const [isVisible, setVisible] = useState(false);
@@ -154,6 +189,7 @@ export default function Portfolio() {
         "home",
         "about",
         "experience",
+        "certifications", // Added to spy list
         "stats",
         "projects",
         "open-source",
@@ -200,6 +236,7 @@ export default function Portfolio() {
               "home",
               "about",
               "experience",
+              "certifications", // Added to Navbar
               "stats",
               "projects",
               "open-source",
@@ -629,8 +666,22 @@ export default function Portfolio() {
         </FadeInSection>
       </section>
 
+      {/* CERTIFICATIONS CAROUSEL SECTION */}
+      <section id="certifications" className="section-container">
+        <FadeInSection>
+          <div className="text-center-block">
+            <span className="overline">Achievements</span>
+            <h2 className="section-title">Certifications.</h2>
+          </div>
+
+          <div style={{ marginTop: "3rem" }}>
+            <CertificationCarousel certs={certificationsData} />
+          </div>
+        </FadeInSection>
+      </section>
+
       {/* GITHUB STATS SECTION */}
-      <section id="stats" className="section-container">
+      <section id="stats" className="section-container bg-alt">
         <FadeInSection>
           <div className="text-center-block">
             <span className="overline">Analytics</span>
@@ -674,7 +725,7 @@ export default function Portfolio() {
       </section>
 
       {/* LIVE PROJECTS */}
-      <section id="projects" className="section-container bg-alt">
+      <section id="projects" className="section-container">
         <FadeInSection>
           <div className="text-center-block">
             <span className="overline">Projects</span>
@@ -760,7 +811,7 @@ export default function Portfolio() {
       </section>
 
       {/* OPEN SOURCE CONTRIBUTIONS */}
-      <section id="open-source" className="section-container">
+      <section id="open-source" className="section-container bg-alt">
         <FadeInSection>
           <div className="text-center-block">
             <span className="overline">Open Source</span>
@@ -808,7 +859,7 @@ export default function Portfolio() {
       </section>
 
       {/* WRITING */}
-      <section id="writing" className="section-container bg-alt">
+      <section id="writing" className="section-container">
         <FadeInSection>
           <div className="text-center-block">
             <span className="overline">Latest Blogs & Publications</span>
@@ -843,7 +894,7 @@ export default function Portfolio() {
       </section>
 
       {/* CONTACT SECTION WITHOUT FORM */}
-      <section id="contact" className="section-container">
+      <section id="contact" className="section-container bg-alt">
         <FadeInSection>
           <div className="text-center-block" style={{ paddingBottom: "2rem" }}>
             <span className="overline">Get in Touch</span>
@@ -1438,6 +1489,159 @@ function NodeTypewriter() {
       <style>{`
         @keyframes blink { 50% { opacity: 0; } }
       `}</style>
+    </div>
+  );
+}
+
+// Certification Carousel Helper Component
+function CertificationCarousel({ certs }) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const handlePrev = () => {
+    setCurrentIndex((prev) => (prev === 0 ? certs.length - 1 : prev - 1));
+  };
+
+  const handleNext = () => {
+    setCurrentIndex((prev) => (prev === certs.length - 1 ? 0 : prev + 1));
+  };
+
+  return (
+    <div
+      className="minimal-card carousel-wrapper"
+      style={{
+        position: "relative",
+        maxWidth: "800px",
+        margin: "0 auto",
+        padding: "1rem",
+        overflow: "hidden", // Hides the overflowing images
+      }}
+    >
+      {/* Slider Track */}
+      <div
+        style={{
+          display: "flex",
+          transition: "transform 0.5s ease-in-out",
+          transform: `translateX(-${currentIndex * 100}%)`,
+        }}
+      >
+        {certs.map((cert) => (
+          <div
+            key={cert.id}
+            style={{
+              minWidth: "100%",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <img
+              src={cert.image}
+              alt={cert.title}
+              style={{
+                width: "100%",
+                maxHeight: "450px",
+                objectFit: "contain",
+                borderRadius: "8px",
+              }}
+            />
+          </div>
+        ))}
+      </div>
+
+      {/* Navigation Buttons */}
+      <button
+        onClick={handlePrev}
+        style={{
+          position: "absolute",
+          top: "50%",
+          left: "20px",
+          transform: "translateY(-50%)",
+          backgroundColor: "var(--glass-bg, rgba(255, 255, 255, 0.2))",
+          backdropFilter: "blur(4px)",
+          color: "var(--text-main, #fff)",
+          border: "1px solid var(--border-subtle, #ccc)",
+          borderRadius: "50%",
+          width: "40px",
+          height: "40px",
+          cursor: "pointer",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          fontSize: "1.2rem",
+          zIndex: 10,
+          transition: "background-color 0.2s",
+        }}
+        onMouseEnter={(e) =>
+          (e.currentTarget.style.backgroundColor =
+            "var(--primary-color, #007bff)")
+        }
+        onMouseLeave={(e) =>
+          (e.currentTarget.style.backgroundColor =
+            "var(--glass-bg, rgba(255, 255, 255, 0.2))")
+        }
+      >
+        &#10094;
+      </button>
+
+      <button
+        onClick={handleNext}
+        style={{
+          position: "absolute",
+          top: "50%",
+          right: "20px",
+          transform: "translateY(-50%)",
+          backgroundColor: "var(--glass-bg, rgba(255, 255, 255, 0.2))",
+          backdropFilter: "blur(4px)",
+          color: "var(--text-main, #fff)",
+          border: "1px solid var(--border-subtle, #ccc)",
+          borderRadius: "50%",
+          width: "40px",
+          height: "40px",
+          cursor: "pointer",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          fontSize: "1.2rem",
+          zIndex: 10,
+          transition: "background-color 0.2s",
+        }}
+        onMouseEnter={(e) =>
+          (e.currentTarget.style.backgroundColor =
+            "var(--primary-color, #007bff)")
+        }
+        onMouseLeave={(e) =>
+          (e.currentTarget.style.backgroundColor =
+            "var(--glass-bg, rgba(255, 255, 255, 0.2))")
+        }
+      >
+        &#10095;
+      </button>
+
+      {/* Indicator Dots */}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          gap: "0.5rem",
+          marginTop: "1rem",
+        }}
+      >
+        {certs.map((_, idx) => (
+          <div
+            key={idx}
+            onClick={() => setCurrentIndex(idx)}
+            style={{
+              width: "10px",
+              height: "10px",
+              borderRadius: "50%",
+              backgroundColor:
+                currentIndex === idx ? "var(--primary-color, #007bff)" : "gray",
+              cursor: "pointer",
+              transition: "background-color 0.3s",
+            }}
+          />
+        ))}
+      </div>
     </div>
   );
 }
