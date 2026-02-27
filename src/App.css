@@ -1,5 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
+/* --- NEW: CUSTOM SCROLLBAR --- */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-main); 
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-subtle); 
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent); 
+}
+
 /* --- THEME VARIABLES --- */
 :root {
   --bg-main: #ffffff;
@@ -13,7 +28,7 @@
   --card-bg: #ffffff;
   --card-alt: #f1f3f4; 
   
-  /* NEW: Light mode glass effect */
+  /* Light mode glass effect */
   --glass-bg: rgba(255, 255, 255, 0.7);
   --glass-border: rgba(0, 0, 0, 0.1);
   --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
@@ -31,7 +46,7 @@ body.dark-mode {
   --card-bg: #111111;
   --card-alt: #1a1a1a;
   
-  /* NEW: Dark mode glass effect - significantly darker for readability */
+  /* Dark mode glass effect - significantly darker for readability */
   --glass-bg: rgba(10, 10, 10, 0.85); 
   --glass-border: rgba(255, 255, 255, 0.1);
   --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
@@ -88,7 +103,7 @@ body {
   align-items: center;
 }
 
-/* NEW: Groups the links and the button */
+/* Groups the links and the button */
 .nav-right {
   display: flex;
   align-items: center;
@@ -114,12 +129,6 @@ body {
 
 .nav-btn:hover, .nav-btn.active {
   color: var(--text-main);
-}
-
-/* --- RESPONSIVE --- */
-@media (max-width: 1050px) {
-  /* Hide links a bit earlier if the screen gets too small for all 9 links */
-  .nav-links { display: none; }
 }
 
 /* --- BUTTONS --- */
@@ -414,11 +423,15 @@ body.dark-mode .tag.highlighted {
 .writing-info .meta { font-size: 0.85rem; color: var(--text-muted); font-weight: 500; }
 
 /* --- RESPONSIVE --- */
+@media (max-width: 1050px) {
+  /* Hide links a bit earlier if the screen gets too small for all 9 links */
+  .nav-links { display: none; }
+}
+
 @media (max-width: 900px) {
   .hero-content h1 { font-size: 3.5rem; letter-spacing: -1.5px; }
   .section-title { font-size: 2.5rem; }
   .grid-layout-2col { grid-template-columns: 1fr; }
-  .nav-links { display: none; }
   .writing-card { flex-direction: column; }
   .writing-img { width: 100%; height: 200px; }
   .exp-header { flex-direction: column; }

@@ -13,6 +13,10 @@ import jsBasicCertificate from "../assets/certificate/js_basic.jpg";
 import sqlBasicCertificate from "../assets/certificate/sql_basic.jpg";
 import sqlIntermediateCertificate from "../assets/certificate/sql_intermediate .jpg";
 
+import mindGroove from "../assets/mind_groove.png";
+import carPrediction from "../assets/car_prediction.png";
+import facial from "../assets/facial.gif";
+
 // Core Tech Icons Array
 const coreTechIcons = [
   {
@@ -189,7 +193,7 @@ export default function Portfolio() {
         "home",
         "about",
         "experience",
-        "certifications", // Added to spy list
+        "certifications",
         "stats",
         "projects",
         "open-source",
@@ -232,7 +236,6 @@ export default function Portfolio() {
         <div className="nav-container">
           <div className="nav-brand">Code. Create. Scale.</div>
 
-          {/* NEW: Grouping links and button together */}
           <div className="nav-right">
             <div className="nav-links">
               {[
@@ -745,6 +748,35 @@ export default function Portfolio() {
               className="project-box"
               style={{ textDecoration: "none", color: "inherit" }}
             >
+              {/* --- NEW: PROJECT PREVIEW IMAGE/GIF 1 --- */}
+              <div
+                style={{
+                  width: "100%",
+                  height: "180px",
+                  overflow: "hidden",
+                  borderRadius: "12px",
+                  marginBottom: "1.5rem",
+                  flexShrink: 0,
+                }}
+              >
+                <img
+                  src={facial}
+                  alt="Project Preview"
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    transition: "transform 0.3s ease",
+                  }}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.transform = "scale(1.05)")
+                  }
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.style.transform = "scale(1)")
+                  }
+                />
+              </div>
+
               <h4>AI Emotion Recognition & Attention Detection</h4>
               <p className="exp-meta" style={{ marginBottom: "1rem" }}>
                 Academic Group Project
@@ -770,6 +802,35 @@ export default function Portfolio() {
               className="project-box"
               style={{ textDecoration: "none", color: "inherit" }}
             >
+              {/* --- NEW: PROJECT PREVIEW IMAGE/GIF 2 --- */}
+              <div
+                style={{
+                  width: "100%",
+                  height: "180px",
+                  overflow: "hidden",
+                  borderRadius: "12px",
+                  marginBottom: "1.5rem",
+                  flexShrink: 0,
+                }}
+              >
+                <img
+                  src={mindGroove}
+                  alt="Project Preview"
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    transition: "transform 0.3s ease",
+                  }}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.transform = "scale(1.05)")
+                  }
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.style.transform = "scale(1)")
+                  }
+                />
+              </div>
+
               <h4>Web 3 Metaverse Platform (Mind Groove)</h4>
               <p className="exp-meta" style={{ marginBottom: "1rem" }}>
                 Dissertation Project
@@ -795,6 +856,35 @@ export default function Portfolio() {
               className="project-box"
               style={{ textDecoration: "none", color: "inherit" }}
             >
+              {/* --- NEW: PROJECT PREVIEW IMAGE/GIF 3 --- */}
+              <div
+                style={{
+                  width: "100%",
+                  height: "180px",
+                  overflow: "hidden",
+                  borderRadius: "12px",
+                  marginBottom: "1.5rem",
+                  flexShrink: 0,
+                }}
+              >
+                <img
+                  src={carPrediction}
+                  alt="Project Preview"
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    transition: "transform 0.3s ease",
+                  }}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.transform = "scale(1.05)")
+                  }
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.style.transform = "scale(1)")
+                  }
+                />
+              </div>
+
               <h4>Car Price Predictor</h4>
               <p className="exp-meta" style={{ marginBottom: "1rem" }}>
                 Machine Learning Project
@@ -957,6 +1047,20 @@ export default function Portfolio() {
           </div>
         </FadeInSection>
       </section>
+
+      {/* --- NEW: SIMPLE FOOTER --- */}
+      <footer
+        style={{
+          textAlign: "center",
+          padding: "3rem 2rem",
+          borderTop: "1px solid var(--border-subtle)",
+          color: "var(--text-muted)",
+          fontSize: "0.95rem",
+          backgroundColor: "var(--bg-main)",
+        }}
+      >
+        <p>© {new Date().getFullYear()} Sukhvinder Singh. Built with React</p>
+      </footer>
 
       {/* FLOATING CONTACT BUTTON */}
       <button
