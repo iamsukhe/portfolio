@@ -3,6 +3,7 @@ import AntigravityBackground from "./AntigravityBackground";
 
 import suraasaLogo from "../assets/suraasa.png";
 import hybrowlabsLogo from "../assets/hybrowlabs.svg";
+import chatreshLogo from "../assets/chatresh.png";
 import uoeLogo from "../assets/uoe-logo.png";
 import duLogo from "../assets/logo-du.png";
 import resume from "../assets/resume.pdf";
@@ -16,6 +17,7 @@ import sqlIntermediateCertificate from "../assets/certificate/sql_intermediate .
 import mindGroove from "../assets/mind_groove.png";
 import carPrediction from "../assets/car_prediction.png";
 import facial from "../assets/facial.gif";
+import ketlix from "../assets/ketlix.png";
 
 // Core Tech Icons Array
 const coreTechIcons = [
@@ -633,6 +635,11 @@ export default function Portfolio() {
                   alt="Hybrowlabs Technologies"
                   hrefLink="https://hybrowlabs.com/"
                 />
+                <BrandLogo
+                  src={chatreshLogo}
+                  alt="Chatresh"
+                  hrefLink="https://www.chatresh.co.uk/"
+                />
               </div>
             </div>
 
@@ -899,6 +906,57 @@ export default function Portfolio() {
                 <CustomTag tag="Scikit-learn" />
                 <CustomTag tag="Pandas" />
                 <CustomTag tag="NumPy" />
+              </div>
+            </a>
+
+            <a
+              href="https://fin-eta-navy.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="project-box"
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              {/* --- NEW: PROJECT PREVIEW IMAGE/GIF 4 --- */}
+              <div
+                style={{
+                  width: "100%",
+                  height: "180px",
+                  overflow: "hidden",
+                  borderRadius: "12px",
+                  marginBottom: "1.5rem",
+                  flexShrink: 0,
+                }}
+              >
+                <img
+                  src={ketlix}
+                  alt="Project Preview"
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    transition: "transform 0.3s ease",
+                  }}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.transform = "scale(1.05)")
+                  }
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.style.transform = "scale(1)")
+                  }
+                />
+              </div>
+
+              <h4>Ketlix Movie Streaming Platform</h4>
+              <p className="exp-meta" style={{ marginBottom: "1rem" }}>
+                Personal Project
+              </p>
+              <p>
+                A high-performance movie streaming platform featuring a fully responsive dark-mode interface, cinematic hero banners, and scrollable categories. Built with a scalable architecture to deliver smooth streaming and content exploration.
+              </p>
+              <div className="tag-grid" style={{ marginTop: "auto" }}>
+                <CustomTag tag="React" />
+                <CustomTag tag="Node.js" />
+                <CustomTag tag="Express" />
+                <CustomTag tag="MongoDB" />
               </div>
             </a>
           </div>
